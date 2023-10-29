@@ -95,10 +95,23 @@ class SimplePreprocessor:
         random.shuffle(result_data)
         return result_data[:train_size], result_data[train_size:]
 
+    def get_x_y(self, processed_data, y_col_name):
+        X, y = [], []
 
+        for row in processed_data:
+            current_x = {}
+            current_y = {}
 
+            for col_name, col_value in row.items():
+                if col_name == y_col_name:
+                    current_y[col_name] = col_value
+                else:
+                    current_x[col_name] = col_value
 
+            X.append(current_x)
+            y.append(current_y)
 
+        return X, y
 
 
 
