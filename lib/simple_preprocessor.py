@@ -69,6 +69,29 @@ class SimplePreprocessor:
 
         return col_data
 
+    def to_list(self, processed_data):
+        list_data = []
+
+        for row in processed_data:
+            new_row = []
+
+            for _, value in row.items():
+                if type(value) == list:
+                    for item in value:
+                        new_row.append(item)
+                else:
+                    new_row.append(value)
+
+            list_data.append(new_row)
+
+        return list_data
+
+
+
+
+
+
+
 
 
 

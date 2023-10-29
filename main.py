@@ -4,6 +4,11 @@ if __name__ == "__main__":
     preprocessor = SimplePreprocessor(csv_path="./adult.csv")
     processed_data = preprocessor.fit()
 
-    for row in processed_data[:5]:
-        print(row)
+    print(processed_data[0])
+
+    list_data = preprocessor.to_list(processed_data=processed_data)
+
+    print(list_data[0])
+
+
 
