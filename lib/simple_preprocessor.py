@@ -1,6 +1,7 @@
 import csv
 from lib.encoder import OneHotEncoder
 from lib.preprocessor import StandardScaler
+import random
 
 class SimplePreprocessor:
     def __init__(self, csv_path):
@@ -85,6 +86,17 @@ class SimplePreprocessor:
             list_data.append(new_row)
 
         return list_data
+
+
+    def train_test_split(self, processed_data, train_size=0.8):
+        result_data = processed_data.copy()
+
+        train_size = int(len(result_data) * train_size)
+        random.shuffle(result_data)
+        return result_data[:train_size], result_data[train_size:]
+
+
+
 
 
 
