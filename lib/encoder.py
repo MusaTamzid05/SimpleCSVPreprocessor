@@ -38,13 +38,6 @@ class OneHotEncoder:
                 arr[index] = 1
                 self.features[key][unique_value] = arr
 
-        for key, value in self.features.items():
-            print("*" * 10)
-            print(key)
-
-            for key2, value2 in value.items():
-                print(key2, value2)
-            print("*" * 10)
 
     def transform(self,col_name, value):
         return self.features[col_name][value]

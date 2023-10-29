@@ -1,5 +1,6 @@
 import csv
 from lib.encoder import OneHotEncoder
+from lib.preprocessor import StandardScaler
 
 class SimplePreprocessor:
     def __init__(self, csv_path):
@@ -34,14 +35,13 @@ class SimplePreprocessor:
 
 
         self.encoder = OneHotEncoder(data_list=self.csv_data,string_columns=self.string_columns)
-
-
-
-
-
+        self.scaler = StandardScaler(preprocessor=self)
 
     def fit(self):
         self.encoder.fit()
+        self.scaler.fit()
+
+
         processed_data = []
 
         for row in self.csv_data:
@@ -49,12 +49,26 @@ class SimplePreprocessor:
             for col_name, col_value in row.items():
                 if col_name in self.string_columns:
                     new_row[col_name] = self.encoder.transform(col_name, col_value)
+                elif col_name in self.number_columns:
+                    new_row[col_name] = self.scaler.transform(col_name, float(col_value))
+
                 else:
                     new_row[col_name] = col_value
 
             processed_data.append(new_row)
 
+        return processed_data
 
-        for row in processed_data[:5]:
-            print(row)
+
+
+    def get_col_data_of(self, col_name):
+        col_data = []
+
+        for row in self.csv_data:
+            col_data.append(row[col_name])
+
+        return col_data
+
+
+
 
